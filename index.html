@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<title>title</title>
+		<style>
+			.demo {
+				margin-top: 300px;
+				margin-left: 200px;
+				width: 100px;
+				height: 100px;
+				text-align: center;
+				line-height: 100px;
+				border: 10px solid #ccc;
+				font-size: 20px;
+				-webkit-backface-visibility: hidden;
+				background: #049CDB;
+				float: left;
+				margin-left: 200px;
+			}
+			
+			#demo1 {
+				transition: all 1s linear 0.3s;
+				-webkit-transition: all 1s linear 0.3s;
+				-moz-transition: all 1s linear 0.3s;
+				-ms-transition: all 1s linear 0.3s;
+				-o-transition: all 1s linear 0.3s;
+			}
+			
+			#demo1:hover {
+				transform: scale(1.8);
+				-webkit-transform: scale(1.8);
+				-moz-transform: scale(1.8);
+				-ms-transform: scale(1.8);
+				-o-transform: scale(1.8);
+			}
+			
+			#timings-demo {
+				border: 1px solid #ccc;
+				padding: 10px;
+				height: 400px;
+				width: 400px;
+				margin-left: 800px;
+			}
+			
+			.box {
+				width: 100px;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				color: #fff;
+				margin-bottom: 10px;
+				-webkit-border-radius: 5px;
+				-webkit-box-shadow: inset 0 0 5px rgba(102, 153, 0, 0.5);
+			}
+			/*逐渐变慢效果：*/
+			
+			#ease {
+				background: #f36;
+				-webkit-transition: all 5s ease 0.3s;
+			}
+			/*加速效果：*/
+			
+			#ease-in {
+				background: #369;
+				-webkit-transition: all 3s ease-in 0.5s;
+			}
+			/*减速效果：*/
+			
+			#ease-out {
+				background: #636;
+				-webkit-transition: all 5s ease-out 0s;
+			}
+			/*先加速然后减速效果：*/
+			
+			#ease-in-out {
+				background: #3e6;
+				-webkit-transition: all 1s ease-in-out 2s;
+			}
+			/*匀速效果：*/
+			
+			#linear {
+				background: #999;
+				-webkit-transition: all 6s linear 0s;
+			}
+			/*该值允许你去自定义一个时间曲线效果：*/
+			
+			#cubic-bezier {
+				background: #6d6;
+				-webkit-transition: all 4s cubic-bezier 1s;
+			}
+			/*hover状态下或单击click按钮后box产生属性变化*/
+			
+			#timings-demo:hover .box {
+				-webkit-transform: rotate(360deg) scale(1.2);
+				-webkit-border-radius: 25px;
+			}
+			
+			.listImage {
+				overflow: hidden;
+				width: 440px;
+				margin: 0 auto;
+			}
+			
+			.listImage img {
+				max-width: 100% !important;
+				height: auto;
+				margin-bottom: 19px;
+			}
+			
+			.listImage a img {
+				transition: all .4s ease-in-out;
+				-webkit-transition: all .4s ease-in-out;
+			}
+			
+			.listImage a:hover img {
+				transform: rotate(8deg) scaleX(1.9) scaleY(1.9);
+				-webkit-transform: rotate(8deg) scaleX(1.9) scaleY(1.9);
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="demo1" class="demo">demo1</div>
+		<div id="demo2" class="demo">demo2</div>
+		<div id="timings-demo">
+
+			<div id="ease" class="box">Ease</div>
+
+			<div id="ease-in" class="box">Ease-in</div>
+
+			<div id="ease-out" class="box">Ease-out</div>
+
+			<div id="ease-in-out" class="box">Ease-in-out</div>
+
+			<div id="linear" class="box">Linear</div>
+
+			<div id="cubic-bezier" class="box">Cubic-bezier</div>
+
+		</div>
+		<div class="listImage">
+			<a href="http://yangjunwei.com" target="_blank">
+				<img width="620" height="200" src="1.jpg" alt="?B???">
+			</a>
+		</div>
+		<div id="myDiv" style="width:300px; height: 100px; background-color: #eee;">CodePlayer</div>动画效果：
+		<select id="animation">
+			<option value="1">动画1</option>
+			<option value="2">动画2</option>
+			<option value="3">动画3</option>
+			<option value="4">动画4</option>
+			<option value="5">动画5</option>
+		</select>
+		<input id="exec" type="button" value="执行动画">
+	</body>
+
+</html>
+<script src="jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#exec").click( function(){ 
+		var v = $("#animation").val(); 
+		var $myDiv = $("#myDiv");   
+		if(v == "1"){        // 数值的单位默认是px     
+			$myDiv.animate( { height: 200 } );   
+		}else if(v == "2"){   
+			// 在现有高度的基础上增加300px (如果原来是100px，增加后就是400px) 
+			// 多个动画连续执行        $
+			$myDiv.animate( { height: 400 } );   
+			$myDiv.animate( { width: "50%" }, 1000 );         
+			$myDiv.animate( { width: 200, height:100}, 1000 ); 
+		}else if(v == "3"){       
+			// font-size或fontSize均可，由多个单词构成的属性均是如此      
+			$myDiv.animate( { fontSize: "30px" }, 2000 );     
+			$myDiv.animate( { fontSize: "14px" }, 2000, function(){  
+				alert("动画3执行完毕!");        });   
+		}else if(v == "4"){    
+			$myDiv.animate( { width: "50%", height: "50%" }, 
+			{ duration: 2000, easing: "linear" });   
+		}else if(v == "5"){      
+			// 根据高度切换显示/隐藏，显示时高度从0增加到原高度，隐藏时高度从原高度减小到0    
+			$myDiv.animate( { height: "toggle" });    }   } );
+
+	});
+</script>
